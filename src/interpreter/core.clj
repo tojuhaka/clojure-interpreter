@@ -21,6 +21,10 @@
     (blank? s) {:type BLANK :value s}
     :default {:type CHR :value s}))
 
+;; clojure demo for reduce TODO: use reduce when tokenizing
+(def lst '({:type "chr", :value "a"}, {:type "chr", :value "b"}, {:type "int", :value "c"}))
+(defn get-type [a x] (concat a [(get x :type)]))
+(reduce get-type [] lst)
 
 (defn get-tokens [char_list]
   (let [tokens []])
