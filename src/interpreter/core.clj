@@ -14,26 +14,38 @@
 (defn plus? [str]
   (re-matches #"\+" str))
 
-(defn get-char-type [s] 
+(defn char-type [s]
   (cond
     (digit? s) {:type INT, :value s}
     (plus? s) {:type PLUS, :value s}
     (blank? s) {:type BLANK :value s}
     :default {:type CHR :value s}))
 
-;; clojure demo for reduce TODO: use reduce when tokenizing
-(def lst '({:type "chr", :value "a"}, {:type "chr", :value "b"}, {:type "int", :value "c"}))
-(defn get-type [a x] (concat a [(get x :type)]))
-(reduce get-type [] lst)
+(defn char-types [char_list]
+  (map (fn [x] (char-type x)) char_list))
 
-(defn get-tokens [char_list]
-  (let [tokens []])
-  (map (fn [x] (get-char-type x)) char_list))
+(defn unify-char-types [a x] 
+  (let [prev-type (get (last a) :type)
+        cur-type (get x :type)
+        prev-value (get (last a) :value)
+        cur-value (get x :value)]
+    (cond
+      (identical? prev-type cur-type) (concat (drop-last a) [{:type cur-type, :value (str prev-value cur-value)}])
+       :else (concat a [x]))))
+
+(defn tokenize [lst]
+  (reduce unify-char-types [] lst))
+  
 
 (defn -main
-  "Interpreter example to learn some clojure"
+  "Interpreter example to learn some clojure."
   [& args]
 
-  (let [text (read-line)]
-    (println (get-tokens (split text #"")))))
+  (let [text (read-line)
+        char-types (char-types (split text #""))]
+
+        (println (tokenize char-types))))
+
+
+
 
