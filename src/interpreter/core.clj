@@ -36,7 +36,6 @@
 
 (defn tokenize [lst]
   (reduce unify-char-types [] lst))
-  
 
 (defn -main
   "Interpreter example to learn some clojure."

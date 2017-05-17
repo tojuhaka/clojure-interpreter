@@ -1,2 +1,2 @@
 # clojure-interpreter
-Small interpreter project for learning clojure
+Small interpreter project to help learing clojure language.
