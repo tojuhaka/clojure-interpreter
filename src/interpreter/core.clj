@@ -21,10 +21,7 @@
     (blank? s) {:type BLANK :value s}
     :default {:type CHR :value s}))
 
-(defn char-types [char_list]
-  (map (fn [x] (char-type x)) char_list))
-
-(defn unify-char-types [a x] 
+(defn unify [a x]
   (let [prev-type (get (last a) :type)
         cur-type (get x :type)
         prev-value (get (last a) :value)
@@ -35,16 +32,15 @@
        :else (concat a [x]))))
 
 (defn tokenize [lst]
-  (reduce unify-char-types [] lst))
+  (let [char-types (map (fn [x] (char-type x)) lst)]
+    (reduce unify [] char-types)))
 
 (defn -main
   "Interpreter example to learn some clojure."
   [& args]
 
-  (let [text (read-line)
-        char-types (char-types (split text #""))]
-
-        (println (tokenize char-types))))
+  (let [text (read-line)]
+        (println (tokenize (split text #"")))))
 
 
 
