@@ -1,7 +1,7 @@
 (ns interpreter.core
   (:gen-class))
 
-(use '[clojure.string :only (split triml blank?)])
+(use '[clojure.string :only (split blank?)])
 
 (def INT "INT")
 (def CHR "CHR")
