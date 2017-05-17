@@ -36,7 +36,8 @@
     (reduce unify [] char-types)))
 
 (defn -main
-  "Interpreter example to learn some clojure."
+  "Interpreter example to learn some clojure. Currently tokenizer implemented.
+  Converts a line from user input to tokens for further use"
   [& args]
 
   (let [text (read-line)]
