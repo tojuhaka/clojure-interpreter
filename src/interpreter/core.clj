@@ -30,7 +30,8 @@
         prev-value (get (last a) :value)
         cur-value (get x :value)]
     (cond
-      (identical? prev-type cur-type) (concat (drop-last a) [{:type cur-type, :value (str prev-value cur-value)}])
+      (identical? prev-type cur-type) (concat (drop-last a)
+        [{:type cur-type, :value (str prev-value cur-value)}])
        :else (concat a [x]))))
 
 (defn tokenize [lst]
