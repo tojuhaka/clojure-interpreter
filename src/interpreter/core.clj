@@ -35,13 +35,26 @@
   (let [char-types (map (fn [x] (char-type x)) lst)]
     (reduce unify [] char-types)))
 
+(defn calculate [tokens value operator]
+    (if (empty? tokens) value
+      ;; TODO: concat all the values based on operators
+      (calculate (rest tokens) (inc value) operator)))
+
+(defn calc-interpreter [tokens]
+  (let [value 0
+        operator PLUS]
+   (calculate tokens value operator)))
+
+
 (defn -main
   "Interpreter example to learn some clojure. Currently tokenizer implemented.
   Converts a line from user input to tokens for further use"
   [& args]
 
   (let [text (read-line)]
-        (println (tokenize (split text #"")))))
+        (let [tokens (tokenize (split text #""))]
+          (println (calc-interpreter tokens))
+        )))
 
 
 
